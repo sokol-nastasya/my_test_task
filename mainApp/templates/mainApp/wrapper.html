@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test</title>
+  {% load staticfiles %}
+  <script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+  <link rel="stylesheet" type="text/css" href="{% static 'fancybox/dist/jquery.fancybox.min.css'%}">
+
+  <script type="text/javascript" src="{% static 'fancybox/dist/jquery.fancybox.min.js' %}"></script>
+
+	<script type="text/javascript" src="{% static 'js/bootstrap.min.js'%}"></script>
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+  <script type="text/javascript" src="/fancybox/jquery.easing-1.4.pack.js"></script>
+  <script type="text/javascript" src="/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+
+ <script type="text/javascript">
+$(document).ready(function(){
+    $(".modalbox").fancybox();
+    $("#f_contact").submit(function(){ return false; });
+    $("#f_send").on("click", function(){
+
+        // тут дальнейшие действия по обработке формы
+        // закрываем окно, как правило делать это нужно после обработки данных
+        $("#f_contact").fadeOut("fast", function(){
+            $(this).before("<p><strong>Ваше сообщение отправлено!</strong></p>");
+            setTimeout("$.fancybox.close()", 1000);
+        });
+    });
+});
+</script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+
+<script type="text/javascript">
+  $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+</script>
+
+</head>
+<body>
+	<header>
+      <!-- Fixed navbar -->
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="/"><img src="{% static 'img/test-header.png' %}" alt="logo" width='80px'></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'mainApp:main' %}">Main App<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'mainApp:test' %}">Test<span class="sr-only">(current)</span></a>
+            </li>
+						<li class="nav-item active">
+              <a class="nav-link" href="{% url 'mainApp:about' %}">About<span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+           <ul class="nav navbar-nav"></ul>
+           <ul class="nav navbar-nav navbar-right">
+						 {% if user.is_authenticated %}
+						 	<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color:white;">{{request.user.username }}<span class="caret"></span></a>
+            	  <ul class="dropdown-menu">
+                	<li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+								</ul>
+							</li>
+						{% else %}
+            	<li><a href="{% url 'accounts:login' %}" style="color: red;">Sign in</a></li>|
+            	<li><a href="{% url 'accounts:signup'%}" style="color: red;">Join as</a></li>
+						{% endif %}
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Begin page content -->
+    <main role="main" class="container">
+      <br>
+      <br>
+      <br>
+      <br>
+      <h3><i>B+</i></h3>
+      <h6 class="leftstr">Premium research and scientific articles</h6>
+			{% block add %}
+			{% endblock %}
+      <br>
+      <hr>
+      {% block teg %}
+
+      {% endblock %}
+
+      {% block content %}
+
+      {% endblock %}
+
+      {% block addservice %}
+
+      {% endblock %}
+
+    </main>
+    <hr>
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <br>
+          <div class="col-sm-3 logo" align="left">
+            <br>
+            <br>
+            <a href="/"><img src="{% static 'img/test-header.png' %}" width="100px"></a>
+
+          </div>
+
+					<div class="col-sm-3 map" align="right">
+						<br>
+						<br>
+						<table>
+							<tr>
+								<td><a href="{% url 'mainApp:main' %}">Main</a></td>
+								<td><a href="{% url 'mainApp:about' %}">About</a></td>
+								<td><a href="{% url 'mainApp:test' %}">Test</a></td>
+							</tr>
+						</table>
+					</div>
+
+
+          <div class="col-sm-6 store">
+            <br>
+            <br>
+            <a href="#"><img src="{% static 'img/app-store-logo.png' %}" width="150px" align="right"></a>
+            <a href="#"><img src="{% static 'img/GooglePlay.png' %}" width="150px" align="right"></a>
+
+          </div>
+
+
+
+          <div class="col-sm-12 social" align="right">
+						<br><br>
+            <a href="#"><i class="fab fa-facebook-f" style="font-size: 2em; color:red"></i></a>
+            <a href="#"><i class="fab fa-twitter" style="font-size: 2em; color:red;"></i></a>
+
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+</body>
+</html>

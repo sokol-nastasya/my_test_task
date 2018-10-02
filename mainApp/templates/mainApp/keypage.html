@@ -1,0 +1,51 @@
+{% extends 'mainApp/wrapper.html' %}
+{% load staticfiles %}
+
+{% block teg %}
+	<div class="container"  style="margin:0px; padding:0px;" >
+		{% for keyword in keywords %}
+			<a type="button" style="margin: 2px;" class="btn btn-default btn-sm" href="/keywords/{{ keyword.id }}">{{ keyword.name }}({{ keyword.keywords.count }})</a>
+		{% endfor %}
+	</div>
+	<br>
+{% endblock %}
+
+{% block content %}
+	
+	{{ keyws.name }}
+	<div class="container">
+	<table class="table">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Service</th>
+				<th>Author</th>
+				<th>Description</th>
+				<th>Access</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for services_lists in services_list %}
+			<tr>
+				<td>
+					{% if services_lists.photo %}
+						<img src="{{ MEDIA_URL }}{{ services_lists.photo.url }}" width="100">
+					{% endif %}
+				</td>
+				<td><a href="/services_lists/{{ services_lists.id }}">{{ services_lists.service }}</a></td>
+				<td>{{ services_lists.author }}</td>
+				<td>{{ services_lists.get_short_description }}</td>
+				<td>{{ services_lists.access }}</td>
+				<td>
+					<form action="/services_lists/{{ services_lists.id }}">
+						<button class="btn btn-primary" style="background-color: green">Learn More</button>
+					</form>
+				</td>
+
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}

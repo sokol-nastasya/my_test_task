@@ -1,0 +1,21 @@
+footer {
+  background-color: black;
+  border-color: black;
+  height: 220px;
+}
+
+.leftstr, .rightstr{
+  float: left;
+  width: 50%;
+}
+
+.rightstr{
+  text-align: right;
+}
+
+footer table td a{
+  color: white;
+}
+.sidebar{
+  background-color: #D3D3D3;
+}

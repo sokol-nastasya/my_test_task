@@ -1,0 +1,91 @@
+{% extends 'mainApp/wrapper.html' %}
+{% load staticfiles %}
+{% load mptt_tags %}
+
+{% block add %}
+	{% if user.is_authenticated %}
+		<h6 class="rightstr"><a style="text-decoration: none;" href="#addservice" rel="nofollow" class="modalbox">&#10010;</a></h6>
+	{% endif %}
+{% endblock %}
+
+{% block teg %}
+	<div class="container" style="margin:0px; padding:0px;" >
+		{% for keyword in keywords %}
+			<a type="button" style="margin: 2px;" class="btn btn-default btn-sm" href="/keywords/{{ keyword.id }}">{{ keyword.name }}({{ keyword.keywords.count }})</a>
+		{% endfor %}
+	</div>
+	<br>
+{% endblock %}
+
+{% block content %}
+
+	<div class="container">
+		<table id="myTable" class="table">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Service</th>
+					<th>Author</th>
+					<th>Description</th>
+					<th>Access</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for services_lists in services_list %}
+				<tr>
+					<td>
+						{% if services_lists.photo %}
+							<img src="{{ MEDIA_URL }}{{ services_lists.photo.url }}" width="100">
+						{% endif %}
+					</td>
+					<td><a href="/services_lists/{{ services_lists.id }}">{{ services_lists.service }}</a></td>
+					<td>{{ services_lists.author }}</td>
+					<td>{{ services_lists.get_short_description }}</td>
+					<td>{{ services_lists.access }}</td>
+					<td>
+						<form action="/services_lists/{{ services_lists.id }}">
+							<button class="btn btn-primary" style="background-color: green;">Learn More</button>
+						</form>
+					</td>
+
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+	<div class="paginator">
+		<span class="step-links" style="position: relative; left: 350px;">
+			{% if services_list.has_previous %}
+				<a href="?page={{ services_list.previous_page_number }}">&#8592;</a>
+			{% endif %}
+
+			<span class="current">
+					Page {{ services_list.number }} of {{ services_list.paginator.num_pages }}.
+			</span>
+
+			{% if services_list.has_next %}
+				<a href="?page={{ services_list.next_page_number }}">&#8594;</a>
+			{% endif %}
+		</span>
+	</div>
+
+{% endblock %}
+
+{% block addservice %}
+	<style type="text/css">
+		#addservice {display: none;}
+	</style>
+
+	<div id="addservice">
+		<h5>Add service:</h5>
+		<form method="post" action="" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ form.as_p }}
+			{{ user_form.as_p }}
+			<input type="submit" name="Add" />
+			<br>
+		</form>
+	</div>
+{% endblock %}

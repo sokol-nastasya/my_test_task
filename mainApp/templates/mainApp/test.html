@@ -1,0 +1,35 @@
+{% extends 'mainApp/wrapper.html' %}
+{% load staticfiles %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3 sidebar">
+				<br>
+				<p>Most of us know this situation well: It's the weekend and you have free time,
+					but are at a loss for how to spend it. You don't feel like reading, watching TV or going out,
+					and you don't have any plans with family or friends. You want to do SOMETHING, but what?
+					No worries! Tests has you covered with our Fun Tests category.</p>
+			</div>
+			<div class="col-sm-9 main">
+				<h1 class="page-header">News</h1>
+				<hr>
+				{% for news in news_m %}
+						<h4><a href="/news/{{ news.id }}">{{ news.title }}</a></h4>
+						<p>{{ news.get_short_text }}</p>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	<!-- <div class="container">
+
+		<br>
+		<hr>
+		<h3>Test for you</h3>
+		<a href="https://www.allthetests.com/quiz31/quiz/1415543087/Are-You-Addicted-to-Your-Cell-Phone" target="_blank">Try this</a>
+		<hr>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/EwSVU5MO8rY?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+	</div> -->
+
+{% endblock %}
